@@ -1,7 +1,7 @@
-
+import sys
 croatia = ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj','s=','z=']
 
-word = input()
+word = sys.stdin.readline().rstrip()
 
 for i in croatia:
     word = word.replace(i, '*')

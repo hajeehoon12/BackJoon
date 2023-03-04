@@ -8,3 +8,4 @@ for _ in range(m):
     box = box[:i-1]+ box[k-1:j]+box[i-1:k-1]+box[j:]
 for b in box:
     print(b, end = ' ')
+

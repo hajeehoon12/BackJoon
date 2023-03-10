@@ -1,26 +1,16 @@
 import sys
 
-n= int(sys.stdin.readline())
-
-cards = sorted(list(map(int, sys.stdin.readline().split())))
-print(cards)
-
-m = int(sys.stdin.readline())
-
+N = int(sys.stdin.readline())
+cards = list(map(int, sys.stdin.readline().split()))
+M = int(sys.stdin.readline())
 checks = list(map(int, sys.stdin.readline().split()))
 
-for check in checks:
-    low, high =0, n-1
+_dict = {}  # 속도는 dictionary!
+for i in range(len(cards)):
+    _dict[cards[i]] = 0  # 아무 숫자로 mapping
 
-    exists = False
-
-    while low <=high:
-        mid = (low+high) //2
-        if cards[mid] > check:
-            high = mid-1
-        elif cards[mid] < check:
-            low = mid+1
-        else:
-            exist =True
-            break
-    print(1 if exist else 0, end = ' ')
+for j in range(M):
+    if checks[j] not in _dict:
+        print(0, end=' ')
+    else:
+        print(1, end=' ')

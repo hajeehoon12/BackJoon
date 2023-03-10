@@ -1,8 +1,8 @@
-import sys
-
-N = map(int,sys.stdin.readline().split())
-
-M = map(int,sys.stdin.readline().split())
+from sys import stdin
+_ = stdin.readline()
+N = map(int,stdin.readline().split())
+_ = stdin.readline()
+M = map(int,stdin.readline().split())
 hashmap = {}
 for n in N:
     if n in hashmap:

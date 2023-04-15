@@ -1,39 +1,38 @@
 from collections import deque
-import sys
 
-def bfs(v): # 너비 우선탐색
-    q = deque()
-    q.append(v)
-    visit_list[v] = 1
-    while q:
-        v= q.popleft()
-        
-        print(v, end = " ")
-        for i in range(1, n+1):
-            if visit_list[i] == 0 and graph[v][i] == 1 :
-                q.append(i)
-                visit_list[i] = 1
+N, M, V = map(int, input().split())
+
+graph = [[False] * (N + 1) for _ in range(N + 1)]
+
+for _ in range(M):
+    a, b = map(int, input().split())
+    graph[a][b] = True
+    graph[b][a] = True
+
+visited1 = [False] * (N + 1)  # dfs의 방문기록
+visited2 = [False] * (N + 1)  # bfs의 방문기록
 
 
+def bfs(V):
+    q = deque([V])  # pop메서드의 시간복잡도가 낮은 덱 내장 메서드를 이용한다
+    visited2[V] = True  # 해당 V 값을 방문처리
+    while q:  # q가 빌때까지 돈다.
+        V = q.popleft()  # 큐에 있는 첫번째 값 꺼낸다.
+        print(V, end=" ")  # 해당 값 출력
+        for i in range(1, N + 1):  # 1부터 N까지 돈다
+            if not visited2[i] and graph[V][i]:  # 만약 해당 i값을 방문하지 않았고 V와 연결이 되어 있다면
+                q.append(i)  # 그 i 값을 추가
+                visited2[i] = True  # i 값을 방문처리
 
-def dfs(v): # 깊이 우선탐색
-    visit_list2[v] =1  # 거기에방문했다 초기화
-    print(v, end = " ")
-    for i in range(1, n+1):
-        if visit_list2[i] == 0  and graph[v][i] == 1: # 기존에 안들렸었고, 다음꺼와 연결되있다면
-            dfs(i)
+
+def dfs(V):
+    visited1[V] = True  # 해당 V값 방문처리
+    print(V, end=" ")
+    for i in range(1, N + 1):
+        if not visited1[i] and graph[V][i]:  # 만약 i값을 방문하지 않았고 V와 연결이 되어 있다면
+            dfs(i)  # 해당 i 값으로 dfs를 돈다.(더 깊이 탐색)
 
 
-n,m,v = map(int, sys.stdin.readline().split())
-
-graph = [[0] * (n+1) for _ in range(n+1)]
-visit_list = [0] * (n+1)   # bfs방문
-visit_list2 = [0] * (n+1)   # dfs 방문
-
-for _ in range(m):
-    a,b = map(int, sys.stdin.readline().split())
-    graph[a][b] = graph[b][a] = 1  # 연결되있다를 표시
-
-dfs(v)
+dfs(V)
 print()
-bfs(v)
+bfs(V)

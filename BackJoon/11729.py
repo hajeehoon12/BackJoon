@@ -1,4 +1,3 @@
-
 def hanoi(n, start, end) : # n개의 원판을 start지점에서 end 로 옮긴다.
     
     if n == 1 :

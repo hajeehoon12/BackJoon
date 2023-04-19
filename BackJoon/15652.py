@@ -11,5 +11,4 @@ def dfs(start):
         s.append(i)
         dfs(i)
         s.pop()
-    
 dfs(1)

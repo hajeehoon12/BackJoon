@@ -10,22 +10,22 @@ for i in range(9):
         if graph[i][j] == 0:
             blank.append((i, j))
 
-def checkRow(x, a): # 행 체크
+def checkRow(x, a):
     for i in range(9):
         if a == graph[x][i]:
             return False
     return True
 
-def checkCol(y, a): # 열 체크
+def checkCol(y, a):
     for i in range(9):
         if a == graph[i][y]:
             return False
     return True
 
-def checkRect(x, y, a): # 구역별 체크
+def checkRect(x, y, a):
     nx = x // 3 * 3
     ny = y // 3 * 3
-    for i in range(3): 
+    for i in range(3):
         for j in range(3):
             if a == graph[nx+i][ny+j]:
                 return False
@@ -35,15 +35,16 @@ def checkRect(x, y, a): # 구역별 체크
 def dfs(idx):
     if idx == len(blank):
         for i in range(9):
-            print(*graph[i]) # 여기서 *은 리스트벗기기
-        return(0)
+            print(*graph[i])
+        exit(0)
 
-    for i in range(1, 10): # 1~9까지 집어넣기
+    for i in range(1, 10):
         x = blank[idx][0]
         y = blank[idx][1]
 
-        if checkRow(x, i) and checkCol(y, i) and checkRect(x, y, i): # 3가지 조건 체크
-            graph[x][y] = i # 만족하면 값 넣고
-            dfs(idx+1)      # 다음 blank도 가정 진행
-            graph[x][y] = 0 # 안쪽에서 못찾았을 경우 초기화
+        if checkRow(x, i) and checkCol(y, i) and checkRect(x, y, i):
+            graph[x][y] = i
+            dfs(idx+1)
+            graph[x][y] = 0
+
 dfs(0)

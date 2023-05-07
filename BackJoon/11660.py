@@ -1,35 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().rstrip().split())
+n, m = map(int, input().split())
 
-rect = []
-
-
+arr = []
 for i in range(n):
-    temp = list(map(int , input().rstrip().split()))
-    rect.append(temp)
-
-ans = [] 
-
-for i in range(m):
-    x1,y1,x2,y2 = map(int, input().rstrip().split())
-    ans.append([x1,y1,x2,y2])
-
-#print(rect)
-#print(ans)
-
-def sum_rect(x1,y1,x2,y2):
-    sum = 0
-    for j in range(x1-1,x2):
-        for k in range(y1-1,y2):
-            sum += rect[j][k]
-    return sum
-
-
-
-for i in ans:
-    x1,y1,x2,y2 = i
-    temp_ans = sum_rect(x1,y1,x2,y2)
+    a = list(map(int, input().split()))
+    arr.append(a)
     
-    print(temp_ans)
+dp = [[0]*(n+1) for i in range(n+1)]
+
+for i in range(1, n+1):
+    for j in range(1, n+1):
+        dp[i][j] = dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + arr[i-1][j-1]
+        
+for k in range(m):
+    x1,y1,x2,y2 = map(int,input().split())
+    
+    result = dp[x2][y2] - dp[x2][y1-1] -dp[x1-1][y2] + dp[x1-1][y1-1]
+    print(result)

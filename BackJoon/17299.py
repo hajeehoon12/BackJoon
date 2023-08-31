@@ -14,5 +14,6 @@ for i in range(1, n):
     while stack and nums_count[nums[stack[-1]]] < nums_count[nums[i]]:
         result[stack.pop()] = nums[i]
     stack.append(i)
-
+# 마지막 스택은 남은채 마무리
+#print(stack)
 print(*result)

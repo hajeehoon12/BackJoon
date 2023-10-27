@@ -12,5 +12,5 @@ t = int(sys.stdin.readline())
 
 for _ in range(t):
     n, m = map(int, sys.stdin.readline().split())
-    ans = factorial(m) / (factorial(n) * factorial(m - n))
-    print(int(ans))
+    ans = factorial(m) // (factorial(n) * factorial(m - n))
+    print(ans)

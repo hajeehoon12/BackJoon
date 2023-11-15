@@ -1,38 +1,27 @@
-import heapq as hq
 import sys
+
+INF = int(1e9)
 
 V, E = map(int, sys.stdin.readline().split())
 
-graph = [[] for _ in range(V+1)]
-
-INF = 1e9
-
-dist = [[1e9]*(V+1) for _ in range(V+1)]
-
-heap = []
+graph = [[INF]*(V+1) for _ in range(V+1)]
 
 for _ in range(E):
     a,b,c = map(int, sys.stdin.readline().split())
-    hq.heappush(heap ,[c, a, b])
-    graph[a].append([b,c])
-    dist[a][b] = c
+    graph[a][b] = c
 
-while heap:
-    cost, start, stop = hq.heappop(heap)
-    #print(cost, start ,stop)
-    if start == stop:
-        print(cost)
-        break
 
-    if dist[start][stop] < cost:
-        continue
+for i in range(1, V+1):
+    for j in range(1, V+1):
+        for k in range(1, V+1):
+            graph[j][k]  = min(graph[j][k], graph[j][i]+graph[i][k])
 
-    for temp_stop, temp_cost in graph[stop]:
-        new_distance = cost + temp_cost
-        
-        if new_distance < dist[start][temp_stop]:
-            dist[start][temp_stop] = new_distance
-            hq.heappush(heap, [new_distance, start, temp_stop])
 
-else:
+result = INF
+for i in range(1, V+1):
+    result = min(result, graph[i][i])
+
+if result == INF:
     print(-1)
+else:
+    print(result)
